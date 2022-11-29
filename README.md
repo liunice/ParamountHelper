@@ -48,7 +48,7 @@ hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com
 hostname = vod*.cbsaavideo.com
 
 # 强制1080p vod*.cbsaavideo.com
-^https:\/\/vod.*?\.cbsaavideo\.com\/intl_vms\/.*?\/master\.m3u8\? url script-response-body https://raw.githubusercontent.com/liunice/ParamountHelper/master/paramount_helper.js
+^https:\/\/vod.*?\.cbsaavideo\.com\/intl_vms\/.*?\/master\.m3u8 url script-response-body https://raw.githubusercontent.com/liunice/ParamountHelper/master/paramount_helper.js
 ```
 
 ## 插件通知的禁用

@@ -22,7 +22,7 @@ hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com
 ^https:\/\/vod\-.*?\.cbsaavideo\.com\/intl_vms\/.*?\/seg_\d+\.vtt$ url script-response-body https://raw.githubusercontent.com/liunice/ParamountHelper/master/paramount_helper.js
 
 # 强制1080p
-^https:\/\/vod.*?\.cbsaavideo\.com\/intl_vms\/.*?\/master\.m3u8\? url script-response-body https://raw.githubusercontent.com/liunice/ParamountHelper/master/paramount_helper.js
+^https:\/\/vod.*?\.cbsaavideo\.com\/intl_vms\/.*?\/master\.m3u8 url script-response-body https://raw.githubusercontent.com/liunice/ParamountHelper/master/paramount_helper.js
 */
 
 (async () => {
@@ -53,6 +53,11 @@ hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com
     }
     else if (/pubads\.g\.doubleclick\.net\/ondemand\/hls\/content\/.*?\/\d+\-\d+\.vtt$/.test($request.url)
         || /vod\-.*?\.cbsaavideo\.com\/intl_vms\/.*?\/seg_\d+\.vtt$/.test($request.url)) {
+
+        if (!checkSubtitleExists()) {
+            $.done({})
+            return
+        }
         
         const offset = parseInt(getSubtitleConfig('offset') || '0')
         $.log(`offset = ${offset}`)

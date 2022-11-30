@@ -90,9 +90,10 @@ hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com
         // iOS SDR => #EXT-X-STREAM-INF:BANDWIDTH=6196650,AVERAGE-BANDWIDTH=4909758,CODECS="avc1.640028,ac-3",RESOLUTION=1920x1080,FRAME-RATE=23.981,AUDIO="audio_ac3",SUBTITLES="cbsi_webvtt"
         const range = ',FRAME-RATE=[^,]+(),(?!VIDEO-RANGE=PQ)'
         const vcodecs = '(?:avc|hvc)'
-        const bitrates = [...body.matchAll(RegExp(String.raw`#EXT-X-STREAM-INF:BANDWIDTH=(\d+),AVERAGE-BANDWIDTH=\d+,CODECS="${vcodecs}[^"]+",RESOLUTION=([\dx]+).*?${range}.*?\s+.+`, 'g'))].map(s => parseInt(s[1]))
+        const resolution = getScriptConfig('4k') == 'true' ? '([\\dx]+)' : '(1920x\\d+)'
+        const bitrates = [...body.matchAll(RegExp(String.raw`#EXT-X-STREAM-INF:BANDWIDTH=(\d+),AVERAGE-BANDWIDTH=\d+,CODECS="${vcodecs}[^"]+",RESOLUTION=${resolution}.*?${range}.*?\s+.+`, 'g'))].map(s => parseInt(s[1]))
         const maxrate = Math.max(...bitrates)
-        const m = RegExp(String.raw`#EXT-X-STREAM-INF:BANDWIDTH=(${maxrate}),AVERAGE-BANDWIDTH=\d+,CODECS="(${vcodecs}[^"]+)",RESOLUTION=([\dx]+).*?${range}.*?\s+(.+)`, 'g').exec(body)
+        const m = RegExp(String.raw`#EXT-X-STREAM-INF:BANDWIDTH=(${maxrate}),AVERAGE-BANDWIDTH=\d+,CODECS="(${vcodecs}[^"]+)",RESOLUTION=${resolution}.*?${range}.*?\s+(.+)`, 'g').exec(body)
         if (m) {
             body = body.replace(RegExp(String.raw`#EXT-X-STREAM-INF:(?!BANDWIDTH=(${m[1]}),AVERAGE-BANDWIDTH=\d+,CODECS="(${m[2]})",RESOLUTION=(${m[3]}).*?${m[4]}).+\s+.+`, 'g'), '')
             $.log(body)

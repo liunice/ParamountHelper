@@ -61,22 +61,30 @@ hostname = vod*.cbsaavideo.com
 # 强制1080p vod*.cbsaavideo.com
 ^https:\/\/vod.*?\.cbsaavideo\.com\/intl_vms\/.*?\/master\.m3u8 url script-response-body https://raw.githubusercontent.com/liunice/ParamountHelper/master/paramount_helper.js
 ```
+插件默认限制最高分辨率为1080p，如需开启4K画质，请按以下步骤操作：
+1. 在``iCloud云盘/Quantumult X/Data/Subtitles``目录下新建文件``helper.conf``
+2. 在``helper.conf``中添加设置项：``4k=true``
+
+**注意**
+1. Pramount+的很多剧集最高只有1080p，最近上线的新剧可能提供4K画质。
+2. 如果你在Mac上修改配置，请在iPhone上打开``文件``App并确认修改已云同步。
 
 ## 插件通知的禁用
 
-本插件默认开启通知。如需禁用，请按以下步骤操作：  
-    1. 在``iCloud云盘/Quantumult X/Data/Subtitles``目录下新建文件``helper.conf``  
-    2. 在``helper.conf``中添加设置项：``notify=false``  
-**注意**  
-    1. 一般不建议禁用通知。禁用通知后插件不会提示正在播放的剧集名称，这样你将不知道如何建立字幕文件夹。  
-    2. 如果你在Mac上修改配置，请在iPhone上打开``文件``App并确认修改已云同步。
+本插件默认开启通知。如需禁用，请按以下步骤操作：
+1. 在``iCloud云盘/Quantumult X/Data/Subtitles``目录下新建文件``helper.conf``
+2. 在``helper.conf``中添加设置项：``notify=false``
+
+**注意**
+1. 不建议禁用通知。禁用后插件不会提示正在播放的剧集名称，这样你可能无法建立正确的字幕文件夹。
+2. 如果你在Mac上修改配置，请在iPhone上打开``文件``App并确认修改已云同步。
 
 ## 注意
-    - 本插件暂只支持QuanX，后续会支持Surge
-    - 本插件暂只支持电视剧，不支持电影
-    - 仅支持srt格式的字幕
-    - 字幕文件建议为utf-8编码，否则可能无法解析
-    - 本插件与DualSubs字幕插件可能存在冲突，请按需启用
+- 本插件暂只支持QuanX，后续会支持Surge
+- 本插件暂只支持电视剧，不支持电影
+- 仅支持srt格式的字幕
+- 字幕文件建议为utf-8编码，否则可能无法解析
+- 本插件与DualSubs字幕插件可能存在冲突，请按需启用
 
 ## 反馈和建议
 不建议在github上提交issue，我不一定看得到。欢迎加入官方TG群组：https://t.me/+W6aJJ-p9Ir1hNmY1v

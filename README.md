@@ -29,27 +29,24 @@ https://raw.githubusercontent.com/liunice/ParamountHelper/master/quanx.conf
 
 - ### 字幕文件的放置
   **【前置步骤】**  
-  在 ``iCloud云盘/Quantumult X/Data``目录下新建``Subtitles``目录，如果没有``Data``目录请先新建, 注意字母大小写。  
+  打开iOS的``文件``App，在 ``iCloud云盘/Quantumult X/Data``下新建``Subtitles``文件夹，如果没有``Data``文件夹请先新建, 注意字母大小写。  
   **【文件放置】**  
   我们以Paramount+上的剧集 ``Tulsa King``为例。  
-  1. 在Paramount+上播放``Tulsa King``第一集，等待顶部出现``正在播放剧集``的通知，注意观察通知框上的剧集名称，应为``Tulsa King``
-  2. 在``iCloud云盘/Quantumult X/Data/Subtitles``目录下新建文件夹``Tulsa King``
-  3. 如果你观看的是第1季，请在``Tulsa King``下新建文件夹``S01``。**注意字母S为大写，且后面的数字固定为两位数。**
-  4. 如果你观看的是第1季第1集，请将srt字幕文件复制到``Tulsa King/S01``目录下，并重命名为``S01E01.srt``，**注意字母S和E均为大写，且后面的数字固定为两位数。**  
-  **如果你在Mac上复制文件，请在iPhone上打开``文件``App并确认修改已云同步。**
+  1. 先开启插件。然后在Paramount+上播放``Tulsa King``第一季第一集，等待顶部出现``正在播放剧集``的通知，注意观察通知框上的剧集名称，应为``Tulsa King``
+  2. 浏览到``iCloud云盘/Quantumult X/Data/Subtitles``目录，你会发现插件已经自动建立了一个新文件夹名为``Tulsa King``，再往下还会有一个文件夹名为``S01``。如果没有请自行建立。
+  3. 如果你观看的是第1季第1集，请将srt字幕文件复制到``Tulsa King/S01``目录下，并重命名为``S01E01.srt``，**注意字母S和E均为大写，且后面的数字固定为两位数。**  
+  **如果你在Mac上复制文件，请在iOS上打开``文件``App并确认修改已云同步。**
 
 - ### 字幕时间轴的微调
-  同样以上面的``Tulsa King``为例。如果你觉得字幕滞后了，想将所有字幕往前调3秒，步骤如下：  
-  1. 在``Tulsa King/S01``文件夹下新建文件``subtitle.conf``
-  2. 在``subtitle.conf``中添加设置项：``offset=-3000``  
-     **注意这里的offset值的单位为毫秒**
+  同样以上面的``Tulsa King``为例。如果你觉得字幕提前了，想将所有字幕往后调2秒，步骤如下：  
+  1. 如果插件已经激活过一次``正在播放剧集``的通知，那么``Tulsa King/S01``文件夹下应该已经自动创建好了一个新文件名为``subtitle.conf``，这就是默认的字幕配置文件。如果没有请自行建立。
+  2. 用文本编辑工具打开``subtitle.conf``，修改offset设置项为：``offset=2000``  
+     **注意这里的offset的单位为毫秒**
 
-  类似的，如果你只想将S01E01往后调3秒，步骤如下：
-  1. 在``Tulsa King/S01``文件夹下新建文件``subtitle.conf``
-  2. 在``subtitle.conf``中添加设置项：``S01E01:offset=3000``  
-     **注意offset前的符号为英文冒号，此设置可以与前面的设置项共存**
+  类似的，如果你只想将S01E02往前调3秒，请在``subtitle.conf``中添加设置项：``S01E02:offset=-3000``  
+     **注意offset前的符号为英文冒号，此设置可以与上面的设置项共存**
   
-  部分网友反馈下载的字幕时快时慢，即使配置了时间轴微调还是对不上。这种情况一般不是插件问题，而是**你下载的字幕和Paramount+的片源不匹配，建议换一个字幕组的再试试。**  
+  部分网友反馈下载的字幕时快时慢，即使配置了时间轴微调还是对不上。这种情况一般不是插件问题，而是**你下载的字幕和Paramount+的视频源不匹配，建议换一个字幕组的再试试。**  
   比如Tulsa King的字幕可以从SubHD网站下载，字幕文件名格式为``tulsa.king.s01e01.2160p.web.h265-glhf``，该字幕的时间轴完美匹配Paramount+片源。如果下载到的是ASS格式，可通过第三方工具将ASS转成SRT格式再使用。
 
 ## 强制1080p
@@ -67,7 +64,7 @@ hostname = vod*.cbsaavideo.com
 
 **注意**
 1. Pramount+的很多剧集最高只有1080p，最近上线的新剧可能提供4K画质。
-2. 如果你在Mac上修改配置，请在iPhone上打开``文件``App并确认修改已云同步。
+2. 如果你在Mac上修改配置，请在iOS上打开``文件``App并确认修改已云同步。
 
 ## 插件通知的禁用
 
@@ -77,7 +74,7 @@ hostname = vod*.cbsaavideo.com
 
 **注意**
 1. 不建议禁用通知。禁用后插件不会提示正在播放的剧集名称，这样你可能无法建立正确的字幕文件夹。
-2. 如果你在Mac上修改配置，请在iPhone上打开``文件``App并确认修改已云同步。
+2. 如果你在Mac上修改配置，请在iOS上打开``文件``App并确认修改已云同步。
 
 ## 注意
 - 本插件暂只支持QuanX，后续会支持Surge

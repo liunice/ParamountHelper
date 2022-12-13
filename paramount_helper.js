@@ -30,6 +30,7 @@ hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com
     const SCRIPT_NAME = 'ParamountHelper'
     const SUBTITLES_DIR = 'Subtitles'
     const FN_SUB_SYNCER_DB = 'sub_syncer.db'
+    const PLATFORM_NAME = 'paramount+'
 
     if (/link\.theplatform\.com\/s\/\w+\/\w+\?format=SMIL/.test($request.url)) {
         if (/<param name="EpisodeNumber" value="([^"]+)"/.test($response.body)) {
@@ -44,7 +45,9 @@ hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com
             notify(SCRIPT_NAME, '正在播放剧集', `[${seriesName}] S${seasonNo}E${episodenNo}`)
 
             // create subtitle.conf if it's not there
-            createConfFile()
+            if (getScriptConfig('auto.create') !== 'false') {
+                createConfFile()
+            }
         }
         else {
             // movie
@@ -76,15 +79,7 @@ hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com
         }
         $.log(vttBody)
 
-        // return response
-        var newHeaders = $request.headers
-        newHeaders['Content-Type'] = 'application/vnd.apple.mpegurl'
-        if ($.isQuanX()) {
-            $.done({ body: vttBody, headers: newHeaders, status: 'HTTP/1.1 200 OK' })
-        }
-        else {
-            $.done({ body: vttBody, headers: newHeaders, status: 200 })
-        }
+        $.done({ body: vttBody })
     }
     else if (/vod.*?\.cbsaavideo\.com\/intl_vms\/.*?\/master\.m3u8/.test($request.url)) {
         let body = $response.body
@@ -143,7 +138,14 @@ hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com
             $.log(e)
         }
         if (!root) {
-            root = { 'manifests': {} }
+            root = {
+                'manifests': {},
+                'platform': PLATFORM_NAME
+            }
+        }
+        else if (root['platform'] && root['platform'] != PLATFORM_NAME) {
+            // 不允许不同平台的数据混在一起
+            return
         }
         else if (root['manifests'][`S${season}E${episode}`]) {
             // 不进行覆盖，防止错误数据写入导致数据混乱

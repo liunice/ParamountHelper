@@ -2,7 +2,7 @@
 @author: liunice
 @decription: Paramount+ iOS 外挂字幕和强制1080p插件
 @created: 2022-11-29
-@updated: 2022-11-29
+@updated: 2023-06-01
 */
 
 /*
@@ -12,7 +12,7 @@
 TG官方群: https://t.me/+W6aJJ-p9Ir1hNmY1
 
 QuanX用法：
-hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com
+hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com, www.paramountplus.com
 
 以下功能请按需启用：
 
@@ -23,6 +23,9 @@ hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com
 
 # 强制1080p
 ^https:\/\/vod.*?\.cbsaavideo\.com\/intl_vms\/.*?\/master\.m3u8 url script-response-body https://raw.githubusercontent.com/liunice/ParamountHelper/master/paramount_helper.js
+
+# 禁用强制更新
+^https:\/\/www\.paramountplus\.com\/apps\-api\/v\d+\.\d+\/\w+\/app\/status\.json\? url script-response-body https://raw.githubusercontent.com/liunice/ParamountHelper/master/paramount_helper.js
 */
 
 (async () => {
@@ -103,6 +106,12 @@ hostname = pubads.g.doubleclick.net, link.theplatform.com, vod*.cbsaavideo.com
         }
 
         $.done({ body: body })
+    }
+    else if (/\/apps\-api\/v\d+\.\d+\/\w+\/app\/status\.json\?/.test($request.url)) {
+        const root = JSON.parse($response.body)
+        root.appVersion.active = true
+        root.appVersion.upgradeAvailable = false
+        $.done({ body: JSON.stringify(root) })
     }
 
     function clearPlaying() {

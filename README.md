@@ -11,7 +11,7 @@ Paramount+ iOS App 外挂字幕和强制1080p插件
 ```
 https://raw.githubusercontent.com/liunice/ParamountHelper/master/quanx.conf
 ```
-这将开启本插件的所有功能，包括外挂字幕和强制1080p。  
+这将开启本插件的所有功能，包括外挂字幕、强制1080p和禁用强制更新。  
 接下来请参考本文档【外挂字幕】章节来正确放置字幕文件。
 
 ## 外挂字幕
@@ -65,6 +65,16 @@ hostname = vod*.cbsaavideo.com
 **注意**
 1. Pramount+的很多剧集最高只有1080p，最近上线的新剧可能提供4K画质。
 2. 如果你在Mac上修改配置，请在iOS上打开``文件``App并确认修改已云同步。
+
+## 禁用强制更新
+最近打开iPad上的v14.0.40版本会提示更新，不更新还用不了。然而更新后所有视频却突然播放不了了，很奇怪。无奈之下尝试用iMazing回退到v14.0.40版本就可以了。不知道是不是新版的bug？还好我iPhone上有老版本的备份。  
+总之为了一劳永逸，我建议禁用app的强制更新机制。
+```
+hostname = www.paramountplus.com
+
+# 禁用强制更新 www.paramountplus.com
+^https:\/\/www\.paramountplus\.com\/apps\-api\/v\d+\.\d+\/\w+\/app\/status\.json\? url script-response-body https://raw.githubusercontent.com/liunice/ParamountHelper/master/paramount_helper.js
+```
 
 ## 插件通知的禁用
 
